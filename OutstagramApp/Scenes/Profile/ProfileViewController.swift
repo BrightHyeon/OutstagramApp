@@ -1,0 +1,172 @@
+//
+//  ProfileViewController.swift
+//  OutstagramApp
+//
+//  Created by HyeonSoo Kim on 2022/03/06.
+//
+
+import UIKit
+import SnapKit
+
+final class ProfileViewController: UIViewController {
+    
+    private lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 40.0
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.quaternaryLabel.cgColor
+        
+        return imageView
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Bright_Hyeon"
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        
+        return label
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "18.08.18 ~ 김현수린 ing ♥︎"
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.numberOfLines = 0 //default가 1임.
+        
+        return label
+    }()
+    
+    private lazy var followButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("팔로우", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        button.backgroundColor = .systemBlue
+        
+        button.layer.cornerRadius = 3.0
+        
+        return button
+    }()
+    
+    private lazy var messageButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("메시지", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        button.backgroundColor = .white
+        
+        button.layer.cornerRadius = 3.0
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.tertiaryLabel.cgColor
+        
+        return button
+    }()
+    //why? private lazy var는 안하고 private let으로 해야하지?
+    private let photoDataView = ProfileDataView(title: "게시물", count: 85)
+    private let followerDataView = ProfileDataView(title: "팔로워", count: 252)
+    private let followingDataView = ProfileDataView(title: "팔로잉", count: 237)
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0.5 //line별 간격
+        layout.minimumInteritemSpacing = 0.5 //같은 row의 item별 간격
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        return collectionView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupNavigaionBar()
+        
+        setupLayout()
+        
+    }
+}
+
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = UICollectionViewCell()
+        
+        return cell
+    }
+}
+
+private extension ProfileViewController {
+    func setupNavigaionBar() {
+        navigationItem.title = "Bright_Hyeon"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis"),
+            style: .plain,
+            target: self,
+            action: nil
+        )
+    }
+    
+    func setupLayout() {
+        //stackView를 이 함수안에서 묶는 것도 괜찮은 듯. 가독성.
+        let buttonStackView = UIStackView(arrangedSubviews: [followButton, messageButton])
+        buttonStackView.spacing = 4.0
+        buttonStackView.distribution = .fillEqually //subview 넓이 같도록.
+        
+        let dataStackView = UIStackView(arrangedSubviews: [photoDataView, followerDataView, followingDataView])
+        dataStackView.spacing = 4.0
+        dataStackView.distribution = .fillEqually
+        
+        [
+            profileImageView, dataStackView, nameLabel, descriptionLabel, buttonStackView, collectionView
+        ].forEach { view.addSubview($0) }
+        
+        let inset: CGFloat = 16.0 //반복적인 inset크기의 경우 상수로 설정하기.
+        
+        profileImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(inset) //지금 superView는 화면전체이다. 그래서 equalToSuperView()를 하게되면 safeArea도 넘어가기에 safeAreaLayoutGuide의 top과 맞춰주기. tableView는 안넘어가든데 이건 슥 넘어가부리네...
+            $0.leading.equalToSuperview().inset(inset)
+            $0.width.equalTo(80.0)
+            $0.height.equalTo(profileImageView.snp.width)
+        }
+        
+        dataStackView.snp.makeConstraints {
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(inset)
+            $0.trailing.equalToSuperview().inset(inset)
+            $0.centerY.equalTo(profileImageView.snp.centerY)
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImageView.snp.bottom).offset(12.0)
+            $0.leading.equalTo(profileImageView.snp.leading)
+            $0.trailing.equalToSuperview().inset(inset)
+        }
+
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom).offset(6.0)
+            $0.leading.equalTo(nameLabel.snp.leading)
+            $0.trailing.equalTo(nameLabel.snp.trailing)
+        }
+
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(12.0)
+            $0.leading.equalTo(nameLabel.snp.leading)
+            $0.trailing.equalTo(nameLabel.snp.trailing)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.top.equalTo(buttonStackView.snp.bottom).offset(16.0)
+            $0.bottom.equalToSuperview()
+        }
+    }
+}
