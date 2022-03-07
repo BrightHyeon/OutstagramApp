@@ -10,7 +10,7 @@ import SnapKit
 
 final class ProfileViewController: UIViewController {
     
-    private let assetArr: [Int] = [1, 2, 3, 4, 5, 6, 7]
+    private let imageArr: [UIImage] = []
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -94,13 +94,13 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        assetArr.count
+        imageArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as? ProfileCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.setup(with: UIImage(named: "\(indexPath.row + 1)") ?? UIImage())
+        cell.setup(with: imageArr[indexPath.row])
         
         return cell
     }
