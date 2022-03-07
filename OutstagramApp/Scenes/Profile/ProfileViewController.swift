@@ -94,7 +94,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return assetArr.count
+        assetArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,7 +116,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 
 private extension ProfileViewController {
     func setupNavigaionBar() {
-        navigationItem.title = "Bright_Hyeon"
+        navigationItem.title = "Swiftist"
         navigationController?.navigationBar.prefersLargeTitles = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -132,7 +132,7 @@ private extension ProfileViewController {
         
         let changeInfoButton = UIAlertAction(title: "회원 정보 변경", style: .default, handler: nil)
         let withdrawButton = UIAlertAction(title: "탈퇴하기", style: .destructive, handler: nil) //.destructive - 글씨 자동 빨강
-        let closeButton = UIAlertAction(title: "닫기", style: .cancel, handler: nil) //.cancel - 자동으로 따로 빠짐.
+        let closeButton = UIAlertAction(title: "close", style: .cancel, handler: nil) //.cancel - 자동으로 따로 빠짐.
         
         [changeInfoButton, withdrawButton, closeButton].forEach { actionSheet.addAction($0) }
         
