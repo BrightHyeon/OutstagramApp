@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class UploadViewController: UIViewController {
-    
+
     private let image: UIImage
     
     private let imageView = UIImageView()

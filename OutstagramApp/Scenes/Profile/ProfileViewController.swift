@@ -10,11 +10,7 @@ import SnapKit
 
 final class ProfileViewController: UIViewController {
     
-    var imageArr: [UIImage] = [] //{ //TODO: - UserDefaults구현하기.
-//        didSet {
-//            print(imageArr)
-//        }
-//    }
+    var imageArr = [UIImage]()
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -94,7 +90,7 @@ final class ProfileViewController: UIViewController {
         setupLayout()
         
         //observer 설치.
-        NotificationCenter.default.addObserver( //TODO: - NotificationCenter가 이 view가 load된 시점에 설치되기 때문에 현재 이 화면을 띄운적이 있어야만 추가가되는 상황. 추후 수정바람.
+        NotificationCenter.default.addObserver( //TODO: - NotificationCenter가 이 view가 load된 시점에 설치되기 때문에 현재 이 화면을 띄운적이 있어야만 추가가되는 상황. 추후 수정바람. //UserDefaults이용하려했으나, 구조체가 아닌 데이터를 저장하는 법에 아직 미숙. 또한 userdefaults는 큰 데이터를 저장하는데는 적합하지않다는 stackoverflow의 글을 읽음.
             self,
             selector: #selector(sendImageNotification(_:)),
             name: NSNotification.Name("sendImage"),
