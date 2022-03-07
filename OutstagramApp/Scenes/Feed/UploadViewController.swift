@@ -12,12 +12,7 @@ final class UploadViewController: UIViewController {
     
     private let image: UIImage
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = image
-        
-        return imageView
-    }()
+    private let imageView = UIImageView()
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -48,6 +43,8 @@ final class UploadViewController: UIViewController {
         setupNavigationBar()
         
         setupLayout()
+        
+        imageView.image = image
     }
 }
 
@@ -84,7 +81,12 @@ private extension UploadViewController {
     }
     
     @objc func didTapRightButton() {
-        //추후 UserDefaults 해보기.
+        NotificationCenter.default.post( //TODO: 이방법쓰기전에 헛질 겁나했다... 단순 프로퍼티 접근은 push나 present등에서 화면이동하면서 한번에 데이터를 전달하는 것이기에 가능하나 이렇게 그 화면으로 가지 않는 경우 불가능...! 추후 더 공부하기!!!
+            name: NSNotification.Name("sendImage"),
+            object: image,
+            userInfo: nil
+        )
+        
         dismiss(animated: true, completion: nil)
     }
     

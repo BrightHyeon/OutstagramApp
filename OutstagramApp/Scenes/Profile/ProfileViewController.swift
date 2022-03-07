@@ -10,7 +10,11 @@ import SnapKit
 
 final class ProfileViewController: UIViewController {
     
-    private let imageArr: [UIImage] = []
+    var imageArr: [UIImage] = [] //{ //TODO: - UserDefaults구현하기.
+//        didSet {
+//            print(imageArr)
+//        }
+//    }
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -89,6 +93,20 @@ final class ProfileViewController: UIViewController {
         
         setupLayout()
         
+        //observer 설치.
+        NotificationCenter.default.addObserver( //TODO: - NotificationCenter가 이 view가 load된 시점에 설치되기 때문에 현재 이 화면을 띄운적이 있어야만 추가가되는 상황. 추후 수정바람.
+            self,
+            selector: #selector(sendImageNotification(_:)),
+            name: NSNotification.Name("sendImage"),
+            object: nil
+        )
+    }
+    
+    @objc private func sendImageNotification(_ notification: Notification) {
+        guard let image = notification.object as? UIImage else { return }
+        //TODO: - uuidString사용하면 Profile collectionView 외에 다른 즐겨찾기 항목 등도 동시 구현가능할 것!
+        self.imageArr.append(image)
+        self.collectionView.reloadData()
     }
 }
 
@@ -101,6 +119,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as? ProfileCollectionViewCell else { return UICollectionViewCell() }
         
         cell.setup(with: imageArr[indexPath.row])
+        //TODO: - 피드 셀들 최근 순서가 가장 첫번째에 위치하는 기능 구현하기.
         
         return cell
     }
