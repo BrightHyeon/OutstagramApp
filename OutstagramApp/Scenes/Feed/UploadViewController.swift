@@ -10,7 +10,14 @@ import SnapKit
 
 final class UploadViewController: UIViewController {
     
-    private let imageView: UIImageView
+    private let image: UIImage
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = image
+        
+        return imageView
+    }()
     
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -23,8 +30,8 @@ final class UploadViewController: UIViewController {
         return textView
     }()
     
-    init(imageView: UIImageView) {
-        self.imageView = imageView
+    init(image: UIImage) {
+        self.image = image
         
         super.init(nibName: nil, bundle: nil)
     }
