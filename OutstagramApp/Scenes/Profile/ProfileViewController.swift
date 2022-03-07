@@ -10,6 +10,8 @@ import SnapKit
 
 final class ProfileViewController: UIViewController {
     
+    private let assetArr: [Int] = [1, 2, 3, 4, 5, 6, 7]
+    
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 40.0
@@ -53,7 +55,7 @@ final class ProfileViewController: UIViewController {
         button.setTitle("메시지", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.backgroundColor = .white
+        button.backgroundColor = .systemBackground
         
         button.layer.cornerRadius = 3.0
         button.layer.borderWidth = 0.5
@@ -73,7 +75,7 @@ final class ProfileViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: "ProfileCollectionViewCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -90,15 +92,25 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return assetArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as? ProfileCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.setup(with: UIImage(named: "\(indexPath.row + 1)") ?? UIImage())
         
         return cell
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    //거의 필수로 쓰는 sizeForItemAt
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = (collectionView.frame.width / 3) - 1.0
+        return CGSize(width: width, height: width)
     }
 }
 
@@ -111,8 +123,20 @@ private extension ProfileViewController {
             image: UIImage(systemName: "ellipsis"),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(tapTabBarItem)
         )
+    }
+    
+    @objc func tapTabBarItem() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let changeInfoButton = UIAlertAction(title: "회원 정보 변경", style: .default, handler: nil)
+        let withdrawButton = UIAlertAction(title: "탈퇴하기", style: .destructive, handler: nil) //.destructive - 글씨 자동 빨강
+        let closeButton = UIAlertAction(title: "닫기", style: .cancel, handler: nil) //.cancel - 자동으로 따로 빠짐.
+        
+        [changeInfoButton, withdrawButton, closeButton].forEach { actionSheet.addAction($0) }
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func setupLayout() {

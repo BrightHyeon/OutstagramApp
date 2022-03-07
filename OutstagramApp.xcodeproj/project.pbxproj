@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9653EE5327D4D48A00D123CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653EE5227D4D48A00D123CC /* ProfileViewController.swift */; };
 		9653EE5627D4DB8800D123CC /* ProfileDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9653EE5527D4DB8800D123CC /* ProfileDataView.swift */; };
+		96BFC15827D5B39A00C59F8E /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC15727D5B39A00C59F8E /* ProfileCollectionViewCell.swift */; };
+		96BFC15B27D5B7E800C59F8E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 96BFC15A27D5B7E800C59F8E /* Kingfisher */; };
+		96BFC15D27D5CE7E00C59F8E /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BFC15C27D5CE7E00C59F8E /* UploadViewController.swift */; };
 		96EBB40827D49734008F3AE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBB40727D49734008F3AE4 /* AppDelegate.swift */; };
 		96EBB40A27D49734008F3AE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EBB40927D49734008F3AE4 /* SceneDelegate.swift */; };
 		96EBB41127D49734008F3AE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96EBB41027D49734008F3AE4 /* Assets.xcassets */; };
@@ -23,6 +26,8 @@
 /* Begin PBXFileReference section */
 		9653EE5227D4D48A00D123CC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9653EE5527D4DB8800D123CC /* ProfileDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataView.swift; sourceTree = "<group>"; };
+		96BFC15727D5B39A00C59F8E /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		96BFC15C27D5CE7E00C59F8E /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		96EBB40427D49734008F3AE4 /* OutstagramApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutstagramApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96EBB40727D49734008F3AE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96EBB40927D49734008F3AE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BFC15B27D5B7E800C59F8E /* Kingfisher in Frameworks */,
 				96EBB41D27D49757008F3AE4 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,6 +58,7 @@
 			children = (
 				96EBB42127D49A10008F3AE4 /* FeedViewController.swift */,
 				96EBB42327D49CA9008F3AE4 /* FeedTableViewCell.swift */,
+				96BFC15C27D5CE7E00C59F8E /* UploadViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -60,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				9653EE5227D4D48A00D123CC /* ProfileViewController.swift */,
+				96BFC15727D5B39A00C59F8E /* ProfileCollectionViewCell.swift */,
 				9653EE5527D4DB8800D123CC /* ProfileDataView.swift */,
 			);
 			path = Profile;
@@ -123,6 +131,7 @@
 			name = OutstagramApp;
 			packageProductDependencies = (
 				96EBB41C27D49757008F3AE4 /* SnapKit */,
+				96BFC15A27D5B7E800C59F8E /* Kingfisher */,
 			);
 			productName = OutstagramApp;
 			productReference = 96EBB40427D49734008F3AE4 /* OutstagramApp.app */;
@@ -154,6 +163,7 @@
 			mainGroup = 96EBB3FB27D49733008F3AE4;
 			packageReferences = (
 				96EBB41B27D49757008F3AE4 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				96BFC15927D5B7E800C59F8E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 96EBB40527D49734008F3AE4 /* Products */;
 			projectDirPath = "";
@@ -182,6 +192,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				96EBB41F27D497C0008F3AE4 /* TabBarController.swift in Sources */,
+				96BFC15D27D5CE7E00C59F8E /* UploadViewController.swift in Sources */,
+				96BFC15827D5B39A00C59F8E /* ProfileCollectionViewCell.swift in Sources */,
 				96EBB42627D4A16D008F3AE4 /* UIButton+.swift in Sources */,
 				96EBB40827D49734008F3AE4 /* AppDelegate.swift in Sources */,
 				96EBB42227D49A10008F3AE4 /* FeedViewController.swift in Sources */,
@@ -400,6 +412,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		96BFC15927D5B7E800C59F8E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		96EBB41B27D49757008F3AE4 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -411,6 +431,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		96BFC15A27D5B7E800C59F8E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96BFC15927D5B7E800C59F8E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		96EBB41C27D49757008F3AE4 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 96EBB41B27D49757008F3AE4 /* XCRemoteSwiftPackageReference "SnapKit" */;
