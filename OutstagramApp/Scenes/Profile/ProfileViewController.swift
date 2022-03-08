@@ -8,9 +8,14 @@
 import UIKit
 import SnapKit
 
-final class ProfileViewController: UIViewController, UploadImageDelegate {
+final class ProfileViewController: UIViewController {
     
-    var imageArr = [UIImage]()
+    var imageArr: [UIImage]? {
+        didSet {
+            print("야 이미지가 오긴했어")
+            print(imageArr)
+        }
+    }
     
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -89,24 +94,28 @@ final class ProfileViewController: UIViewController, UploadImageDelegate {
         
         setupLayout()
         
+        print("profileViewController 로드!")
+        print(imageArr)
     }
-    
-    func sendUIImage(image: UIImage) {
-        self.imageArr.append(image)
-        self.collectionView.reloadData()
-    }
-    
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        imageArr.count
+        if let imageArr = imageArr {
+            return imageArr.count
+        } else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as? ProfileCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.setup(with: imageArr[indexPath.row])
+        if let imageArr = imageArr {
+            cell.setup(with: imageArr[indexPath.row])
+        } else {
+            cell.setup(with: UIImage())
+        }
         
         return cell
     }

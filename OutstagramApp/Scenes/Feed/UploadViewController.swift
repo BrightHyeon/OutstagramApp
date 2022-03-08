@@ -7,16 +7,15 @@
 
 import UIKit
 import SnapKit
-
-protocol UploadImageDelegate: AnyObject {
-    func sendUIImage(image: UIImage)
-}
+import MapKit
 
 final class UploadViewController: UIViewController {
     
-    weak var delegate: UploadImageDelegate?
-    
-    private let image: UIImage
+    var image: UIImage? {
+        didSet {
+            print("나 이미지 받았어 !")
+        }
+    }
     
     private let imageView = UIImageView()
     
@@ -31,16 +30,6 @@ final class UploadViewController: UIViewController {
         return textView
     }()
     
-    init(image: UIImage) {
-        self.image = image
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +39,10 @@ final class UploadViewController: UIViewController {
         
         setupLayout()
         
-        self.imageView.image = image
+        self.imageView.image = image!
+        
+        print("UploadViewControlelr 로드 !")
+        print(image)
     }
 }
 
@@ -89,8 +81,16 @@ private extension UploadViewController {
     @objc func didTapRightButton() {
         //추후 UserDefaults 해보기.
         //delegate패턴 이용해보기.
-        self.delegate?.sendUIImage(image: image)
-        
+        let profileVC = ProfileViewController()
+        if let image = image {
+            if profileVC.imageArr == nil {
+                profileVC.imageArr = [image]
+            } else {
+                profileVC.imageArr?.append(image)
+            }
+        }
+        print("난 분명히 눌렸어!")
+        print(image)
         dismiss(animated: true, completion: nil)
     }
     
