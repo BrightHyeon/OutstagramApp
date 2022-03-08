@@ -89,6 +89,8 @@ final class ProfileViewController: UIViewController {
         
         setupLayout()
         
+        print("ProfileViewController가 로드되었다.")
+        
         //observer 설치.
         NotificationCenter.default.addObserver( //TODO: - NotificationCenter가 이 view가 load된 시점에 설치되기 때문에 현재 이 화면을 띄운적이 있어야만 추가가되는 상황. 추후 수정바람. //UserDefaults이용하려했으나, 구조체가 아닌 데이터를 저장하는 법에 아직 미숙. 또한 userdefaults는 큰 데이터를 저장하는데는 적합하지않다는 stackoverflow의 글을 읽음.
             self,
@@ -96,6 +98,10 @@ final class ProfileViewController: UIViewController {
             name: NSNotification.Name("sendImage"),
             object: nil
         )
+        
+        print("NotificationCenter도 거쳤단다.")
+        
+        print(imageArr)
     }
     
     @objc private func sendImageNotification(_ notification: Notification) {
@@ -103,6 +109,8 @@ final class ProfileViewController: UIViewController {
         //TODO: - uuidString사용하면 Profile collectionView 외에 다른 즐겨찾기 항목 등도 동시 구현가능할 것!
         self.imageArr.append(image)
         self.collectionView.reloadData()
+        print("Observer selector Action 실행 ~!")
+        print("잘 append됐을까나~? : \(imageArr)")
     }
 }
 
