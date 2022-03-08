@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, UploadImageDelegate {
     
     var imageArr = [UIImage]()
     
@@ -90,6 +90,12 @@ final class ProfileViewController: UIViewController {
         setupLayout()
         
     }
+    
+    func sendUIImage(image: UIImage) {
+        self.imageArr.append(image)
+        self.collectionView.reloadData()
+    }
+    
 }
 
 extension ProfileViewController: UICollectionViewDataSource {

@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol UploadImageDelegate: AnyObject {
+    func sendUIImage(image: UIImage)
+}
+
 final class UploadViewController: UIViewController {
+    
+    weak var delegate: UploadImageDelegate?
     
     private let image: UIImage
     
@@ -43,6 +49,8 @@ final class UploadViewController: UIViewController {
         setupNavigationBar()
         
         setupLayout()
+        
+        self.imageView.image = image
     }
 }
 
@@ -80,6 +88,9 @@ private extension UploadViewController {
     
     @objc func didTapRightButton() {
         //추후 UserDefaults 해보기.
+        //delegate패턴 이용해보기.
+        self.delegate?.sendUIImage(image: image)
+        
         dismiss(animated: true, completion: nil)
     }
     
