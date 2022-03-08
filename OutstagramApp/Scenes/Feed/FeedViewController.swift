@@ -73,10 +73,8 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         picker.dismiss(animated: true) { [weak self] in //present 아까 했으니, 상응하는 dismiss로! //강한순환참조 방지! self사용 및 클로저 속 클로저 등?
             //completion handler
-            let imageView = UIImageView()
-            imageView.image = selectImage
             
-            let uploadViewController = UploadViewController(imageView: imageView)
+            let uploadViewController = UploadViewController(image: selectImage ?? UIImage())
             let navigationController = UINavigationController(rootViewController: uploadViewController)
             navigationController.modalPresentationStyle = .fullScreen
             
