@@ -71,8 +71,7 @@ extension FeedViewController: UIImagePickerControllerDelegate, UINavigationContr
             selectImage = originalImage //편집 안된 그냥 원래이미지.
         }
         
-        picker.dismiss(animated: true) { [weak self] in //present 아까 했으니, 상응하는 dismiss로! //강한순환참조 방지! self사용 및 클로저 속 클로저 등?
-            //completion handler
+        picker.dismiss(animated: true) { [weak self] in
             
             let uploadViewController = UploadViewController(image: selectImage ?? UIImage())
             let navigationController = UINavigationController(rootViewController: uploadViewController)
